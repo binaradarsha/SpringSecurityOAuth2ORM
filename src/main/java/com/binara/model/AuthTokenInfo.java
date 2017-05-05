@@ -1,4 +1,4 @@
-package com.websystique.springmvc.model;
+package com.binara.model;
 
 public class AuthTokenInfo {
 

@@ -1,4 +1,4 @@
-package com.websystique.springmvc.security;
+package com.binara.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

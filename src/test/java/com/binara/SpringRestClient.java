@@ -1,30 +1,24 @@
-package com.websystique.springmvc;
- 
-import java.net.URI;
+package com.binara;
+
+import com.binara.model.AuthTokenInfo;
+import com.binara.model.User;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.*;
+import org.springframework.util.Assert;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
-import org.springframework.web.client.RestTemplate;
-
-import com.websystique.springmvc.model.AuthTokenInfo;
-import com.websystique.springmvc.model.User;
- 
 public class SpringRestClient {
  
-    public static final String REST_SERVICE_URI = "http://localhost:8080/SpringSecurityOAuth2Example";
+    public static final String REST_SERVICE_URI = "http://localhost:8080/SpringSecurityOAuth2ORM";
     
-    public static final String AUTH_SERVER_URI = "http://localhost:8080/SpringSecurityOAuth2Example/oauth/token";
+    public static final String AUTH_SERVER_URI = "http://localhost:8080/SpringSecurityOAuth2ORM/oauth/token";
     
-    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=bill&password=abc123";
-    
+    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=def&password=456";
+
     public static final String QPM_ACCESS_TOKEN = "?access_token=";
 
     /*
@@ -86,7 +80,7 @@ public class SpringRestClient {
 
     	System.out.println("\nTesting listAllUsers API-----------");
         RestTemplate restTemplate = new RestTemplate(); 
-        
+
         HttpEntity<String> request = new HttpEntity<String>(getHeaders());
         ResponseEntity<List> response = restTemplate.exchange(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
         		HttpMethod.GET, request, List.class);
@@ -94,7 +88,7 @@ public class SpringRestClient {
         
         if(usersMap!=null){
             for(LinkedHashMap<String, Object> map : usersMap){
-                System.out.println("User : id="+map.get("id")+", Name="+map.get("name")+", Age="+map.get("age")+", Salary="+map.get("salary"));;
+                System.out.println("User : id="+map.get("id")+", name="+map.get("name")+", username="+map.get("username")+", password="+map.get("password")+", role="+((LinkedHashMap)map.get("role")).get("name"));
             }
         }else{
             System.out.println("No user exist----------");
@@ -122,11 +116,11 @@ public class SpringRestClient {
     	Assert.notNull(tokenInfo, "Authenticate first please......");
         System.out.println("\nTesting create User API----------");
         RestTemplate restTemplate = new RestTemplate();
-        User user = new User(0,"Sarah",51,134);
-        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
-        URI uri = restTemplate.postForLocation(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
-        		request, User.class);
-        System.out.println("Location : "+uri.toASCIIString());
+//        User user = new User(0,"Sarah",51,134);
+//        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
+//        URI uri = restTemplate.postForLocation(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+//        		request, User.class);
+//        System.out.println("Location : "+uri.toASCIIString());
     }
  
     /*
@@ -136,11 +130,11 @@ public class SpringRestClient {
     	Assert.notNull(tokenInfo, "Authenticate first please......");
         System.out.println("\nTesting update User API----------");
         RestTemplate restTemplate = new RestTemplate();
-        User user  = new User(1,"Tomy",33, 70000);
-        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
-        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/1"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
-        		HttpMethod.PUT, request, User.class);
-        System.out.println(response.getBody());
+//        User user  = new User(1,"Tomy",33, 70000);
+//        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
+//        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/1"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+//        		HttpMethod.PUT, request, User.class);
+//        System.out.println(response.getBody());
     }
  
     /*

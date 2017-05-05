@@ -1,7 +1,9 @@
-package com.websystique.springmvc.controller;
+package com.binara.controller;
  
 import java.util.List;
- 
+
+import com.binara.model.User;
+import com.binara.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
- 
-import com.websystique.springmvc.model.User;
-import com.websystique.springmvc.service.UserService;
- 
+
 @RestController
 public class HelloWorldRestController {
  
@@ -84,8 +83,8 @@ public class HelloWorldRestController {
         }
  
         currentUser.setName(user.getName());
-        currentUser.setAge(user.getAge());
-        currentUser.setSalary(user.getSalary());
+//        currentUser.setAge(user.getAge());
+//        currentUser.setSalary(user.getSalary());
          
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
