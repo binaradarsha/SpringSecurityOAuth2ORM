@@ -22,4 +22,10 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getAllUsers() {
         return entityManager.createQuery("FROM User u").getResultList();
     }
+
+    @Override
+    public User getUser(long id) {
+        return entityManager.find(User.class, id);
+//        return (User) entityManager.createQuery("FROM User u WHERE u.id=:x").setParameter("x", id).getSingleResult();
+    }
 }

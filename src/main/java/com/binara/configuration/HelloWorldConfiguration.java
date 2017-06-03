@@ -21,7 +21,7 @@ public class HelloWorldConfiguration {
 //        driverManagerDataSource.setPassword("123");
 
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/auth_module");
+        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/auth_module?useSSL=false&verifyServerCertificate=false");
         driverManagerDataSource.setUsername("root");
         driverManagerDataSource.setPassword("123");
 

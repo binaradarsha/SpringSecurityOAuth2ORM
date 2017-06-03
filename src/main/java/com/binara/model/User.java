@@ -10,7 +10,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false)
-	private int id;
+	private long id;
 
 	@Column(name = "name")
 	private String name;
@@ -27,11 +27,11 @@ public class User implements Serializable {
 
 	private boolean enabled;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -73,5 +73,20 @@ public class User implements Serializable {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("User[id=");
+		sb.append(id);
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", username=");
+		sb.append(username);
+		sb.append(", password=");
+		sb.append(password);
+		sb.append("]");
+		return sb.toString();
 	}
 }

@@ -103,7 +103,7 @@ public class SpringRestClient {
         System.out.println("\nTesting getUser API----------");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(getHeaders());
-        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/1"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/3"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
         		HttpMethod.GET, request, User.class);
         User user = response.getBody();
         System.out.println(user);
@@ -165,7 +165,7 @@ public class SpringRestClient {
     public static void main(String args[]){
     	AuthTokenInfo tokenInfo = sendTokenRequest();
     	listAllUsers(tokenInfo);
-        
+
     	getUser(tokenInfo);
         
     	createUser(tokenInfo);
