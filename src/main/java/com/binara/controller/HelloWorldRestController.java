@@ -53,19 +53,21 @@ public class HelloWorldRestController {
     //-------------------Create a User--------------------------------------------------------
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<User> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getName());
  
         if (userService.isUserExist(user)) {
             System.out.println("A User with name " + user.getName() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
         }
  
         userService.saveUser(user);
  
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
  
      
@@ -75,19 +77,15 @@ public class HelloWorldRestController {
     public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         System.out.println("Updating User " + id);
          
-        User currentUser = userService.findById(id);
+        User matchedUser = userService.findById(id);
          
-        if (currentUser==null) {
+        if (matchedUser==null) {
             System.out.println("User with id " + id + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
- 
-        currentUser.setName(user.getName());
-//        currentUser.setAge(user.getAge());
-//        currentUser.setSalary(user.getSalary());
          
-        userService.updateUser(currentUser);
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+        userService.updateUser(user);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
  
     //------------------- Delete a User --------------------------------------------------------

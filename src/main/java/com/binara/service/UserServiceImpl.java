@@ -26,15 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUser(User user) {
-
+        userDAO.createUser(user);
     }
 
     public void updateUser(User user) {
-
+        userDAO.updateUser(user);
     }
 
     public void deleteUserById(long id) {
-
+        userDAO.deleteUser(id);
     }
 
     public boolean isUserExist(User user) {

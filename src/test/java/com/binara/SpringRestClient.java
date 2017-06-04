@@ -1,12 +1,14 @@
 package com.binara;
 
 import com.binara.model.AuthTokenInfo;
+import com.binara.model.Role;
 import com.binara.model.User;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.*;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +22,8 @@ public class SpringRestClient {
     public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=def&password=456";
 
     public static final String QPM_ACCESS_TOKEN = "?access_token=";
+
+    private static User newUser;
 
     /*
      * Prepare HTTP Headers.
@@ -116,11 +120,22 @@ public class SpringRestClient {
     	Assert.notNull(tokenInfo, "Authenticate first please......");
         System.out.println("\nTesting create User API----------");
         RestTemplate restTemplate = new RestTemplate();
-//        User user = new User(0,"Sarah",51,134);
-//        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
+        User user = new User();
+        user.setName("Karl");
+        user.setUsername("karl");
+        user.setPassword("karl123");
+        Role role = new Role();
+        role.setId(4);
+        user.setRole(role);
+        user.setEnabled(true);
+        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
 //        URI uri = restTemplate.postForLocation(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
 //        		request, User.class);
 //        System.out.println("Location : "+uri.toASCIIString());
+        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+                HttpMethod.POST, request, User.class);
+        newUser = response.getBody();
+        System.out.println("Created user: "+newUser);
     }
  
     /*
@@ -130,11 +145,11 @@ public class SpringRestClient {
     	Assert.notNull(tokenInfo, "Authenticate first please......");
         System.out.println("\nTesting update User API----------");
         RestTemplate restTemplate = new RestTemplate();
-//        User user  = new User(1,"Tomy",33, 70000);
-//        HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());
-//        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/1"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
-//        		HttpMethod.PUT, request, User.class);
-//        System.out.println(response.getBody());
+        newUser.setName("Karl Jackson");
+        HttpEntity<Object> request = new HttpEntity<Object>(newUser, getHeaders());
+        ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URI+"/user/"+newUser.getId()+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+        		HttpMethod.PUT, request, User.class);
+        System.out.println(response.getBody());
     }
  
     /*
@@ -145,7 +160,7 @@ public class SpringRestClient {
         System.out.println("\nTesting delete User API----------");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(getHeaders());
-        restTemplate.exchange(REST_SERVICE_URI+"/user/3"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+        restTemplate.exchange(REST_SERVICE_URI+"/user/"+newUser.getId()+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
         		HttpMethod.DELETE, request, User.class);
     }
  
@@ -158,8 +173,8 @@ public class SpringRestClient {
         System.out.println("\nTesting all delete Users API----------");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(getHeaders());
-        restTemplate.exchange(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
-        		HttpMethod.DELETE, request, User.class);
+//        restTemplate.exchange(REST_SERVICE_URI+"/user/"+QPM_ACCESS_TOKEN+tokenInfo.getAccess_token(),
+//        		HttpMethod.DELETE, request, User.class);
     }
  
     public static void main(String args[]){
@@ -177,7 +192,7 @@ public class SpringRestClient {
         deleteUser(tokenInfo);
         listAllUsers(tokenInfo);
         
-        deleteAllUsers(tokenInfo);
-        listAllUsers(tokenInfo);
+//        deleteAllUsers(tokenInfo);
+//        listAllUsers(tokenInfo);
     }
 }
