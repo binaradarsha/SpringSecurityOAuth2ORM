@@ -31,7 +31,6 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                // TODO: change two queries
                 .usersByUsernameQuery(
                         "select username,password,enabled from t_user where username=?")
                 .authoritiesByUsernameQuery(

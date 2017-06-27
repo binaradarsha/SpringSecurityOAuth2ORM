@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ public class HelloWorldRestController {
  
     @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
- 
      
     //-------------------Retrieve All Users--------------------------------------------------------
      
@@ -36,7 +36,7 @@ public class HelloWorldRestController {
  
  
     //-------------------Retrieve Single User--------------------------------------------------------
-     
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<User> getUser(@PathVariable("id") long id) {
         System.out.println("Fetching User with id " + id);
