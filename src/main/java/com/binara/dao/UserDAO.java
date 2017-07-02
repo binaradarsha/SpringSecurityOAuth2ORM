@@ -1,6 +1,7 @@
 package com.binara.dao;
 
 import com.binara.model.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -11,7 +12,10 @@ public interface UserDAO {
 
     List<User> getAllUsers();
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     User getUser(long id);
+
+    User getUser(String username);
 
     void createUser(User user);
 

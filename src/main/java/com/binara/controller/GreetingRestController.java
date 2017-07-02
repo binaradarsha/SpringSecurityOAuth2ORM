@@ -16,8 +16,10 @@ public class GreetingRestController {
 
 //    @PreAuthorize("hasRole('CUSTOMER')")
 //    @PreAuthorize("#oauth2.clientHasRole('CUSTOMER')")
-    @PreAuthorize("hasAuthority('CUSTOMER')")
 //    @Secured("CUSTOMER")
+
+//    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
     @RequestMapping(value = "/greet/", method = RequestMethod.GET)
     public ResponseEntity<String> greet(){
         return new ResponseEntity<String>("Welcome!", HttpStatus.OK);

@@ -20,8 +20,8 @@ public class SpringRestClient {
 
     public static final String AUTH_SERVER_URI = "http://localhost:8080/SpringSecurityOAuth2ORM/oauth/token";
 
-//    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=def&password=456";
-    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=ghk&password=789";
+    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=def&password=456";
+//    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=ghk&password=789";
 
     public static final String QPM_ACCESS_TOKEN = "?access_token=";
 
