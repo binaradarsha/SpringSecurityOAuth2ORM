@@ -15,11 +15,13 @@ public class HelloWorldConfiguration {
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 
+        // Postgres
 //        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
 //        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/auth_module");
 //        driverManagerDataSource.setUsername("dev");
 //        driverManagerDataSource.setPassword("123");
 
+        // MySQL
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/auth_module?useSSL=false&verifyServerCertificate=false");
         driverManagerDataSource.setUsername("root");
